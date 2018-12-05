@@ -12,8 +12,8 @@ def init_browser():
 def scrape_info():
     browser = init_browser()
 
-    # Visit visitcostarica.herokuapp.com
-    url = "https://visitcostarica.herokuapp.com/"
+   
+    url = "https://github.com/assegidsamuel/webscraping/blob/master/WebScraping-Homework/News_NASA_Mars_Exploration_Program.html/"
     browser.visit(url)
 
     time.sleep(1)
@@ -22,25 +22,27 @@ def scrape_info():
     html = browser.html
     soup = bs(html, "html.parser")
 
-    # Get the average temps
-    avg_temps = soup.find('div', id='weather')
+    # Get news title
+    news_title = news_soup.title.text
 
-    # Get the min avg temp
-    min_temp = avg_temps.find_all('strong')[0].text
+    # Get paragraph
+    news_p = news_soup.body.find('p').text
 
-    # Get the max avg temp
-    max_temp = avg_temps.find_all('strong')[1].text
-
-    # BONUS: Find the src for the sloth image
-    relative_image_path = soup.find_all('img')[2]["src"]
-    sloth_img = url + relative_image_path
+    # Get featured image
+    featured_image_url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars" + image
+    
+    #get mars facts
+    html_table = tables.html
 
     # Store data in a dictionary
-    costa_data = {
-        "sloth_img": sloth_img,
-        "min_temp": min_temp,
-        "max_temp": max_temp
-    }
+   hemisphere_image_urls = {"title": "Valles Marineris Hemisphere", "img_url": "https://astrogeology.usgs.gov/cache/images/7cf2da4bf549ed01c17f206327be4db7_valles_marineris_enhanced.tif_full.jpg"},
+    
+                        {"title": "Cerberus Hemisphere","img_url":"https://astrogeology.usgs.gov/cache/images/cfa62af2557222a02478f1fcd781d445_cerberus_enhanced.tif_full.jpg "},
+                        
+                        {"title": "Schiaparelli Hemisphere", "img_url": "https://astrogeology.usgs.gov/cache/images/3cdd1cbf5e0813bba925c9030d13b62e_schiaparelli_enhanced.tif_full.jpg"},
+                        {"title": "Syrtis Major Hemisphere", "img_url": "https://astrogeology.usgs.gov/cache/images/ae209b4e408bb6c3e67b6af38168cf28_syrtis_major_enhanced.tif_full.jpg"},
+                        
+        
 
     # Close the browser after scraping
     browser.quit()
